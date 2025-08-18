@@ -5,11 +5,12 @@ export async function GET() {
 
   const wallet = new ethers.Wallet(walletPrivateKey);
   const publicAddress = await wallet.getAddress();
+  const contractAddres = "0x64D6581D4084Ae01d787A7e9bE333e9F8dB26B57";
 
   const domain: TypedDataDomain = {
     chainId: 11155420,
+    verifyingContract: contractAddres,
     name: "Hackathon",
-    verifyingContract: "0xe21A33e033fC1cBf13Aff458Adc3b26f2e662123",
     version: "1.0.0",
   };
 
@@ -26,6 +27,7 @@ export async function GET() {
 
   const signature = await wallet.signTypedData(domain, types, value);
   const data = {
+    contractAddres,
     publicAddress,
     signature,
   };
