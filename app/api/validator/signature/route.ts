@@ -1,9 +1,9 @@
 import { TypedDataDomain, TypedDataField, ethers } from "ethers";
 
 export async function GET() {
-  const walletPrivateKey = process.env.WALLET_PRIVATE_KEY!;
+  const validatorWalletPrivateKey = process.env.VALIDATOR_WALLET_PRIVATE_KEY!;
 
-  const wallet = new ethers.Wallet(walletPrivateKey);
+  const wallet = new ethers.Wallet(validatorWalletPrivateKey);
   const publicAddress = await wallet.getAddress();
   const contractAddres = "0x64D6581D4084Ae01d787A7e9bE333e9F8dB26B57";
 
