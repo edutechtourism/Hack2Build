@@ -24,11 +24,6 @@ export const appNetworkRecord: Record<
   [AppChainId.sepolia]: sepolia,
 };
 
-// export const appNetworkPathRecord: Record<AppChainId, string> = {
-//   [AppChainId.optimismSepolia]: formatToValidPath(optimismSepolia),
-//   [AppChainId.sepolia]: formatToValidPath(sepolia),
-// };
-
 export const appScanURLRecord: Record<AppChainId, string> = {
   [AppChainId.avalancheFuji]: "https://snowtrace.io/tx",
   [AppChainId.optimismSepolia]: "https://sepolia-optimism.etherscan.io/tx",
@@ -38,5 +33,4 @@ export const appScanURLRecord: Record<AppChainId, string> = {
 export interface IAppContract {
   chainId: AppChainId;
   address: string;
-  // path: string;
 }
