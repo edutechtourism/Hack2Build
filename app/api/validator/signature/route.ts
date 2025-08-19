@@ -5,23 +5,37 @@ export async function GET() {
 
   const wallet = new ethers.Wallet(validatorWalletPrivateKey);
   const publicAddress = await wallet.getAddress();
-  const contractAddres = "0x64D6581D4084Ae01d787A7e9bE333e9F8dB26B57";
+  const contractAddres = "0x84B87EFf5C2D0ED3f2e98F3DfbF2736B0A037c5e";
 
   const domain: TypedDataDomain = {
-    chainId: 11155420,
+    chainId: 11155111,
     verifyingContract: contractAddres,
-    name: "Hackathon",
+    name: "HempEngine",
     version: "1.0.0",
   };
 
   const types: Record<string, Array<TypedDataField>> = {
-    AirdropClaim: [
-      { name: "account", type: "address" },
+    RegenerativeAction: [
+      { name: "id", type: "string" },
+      { name: "farmer", type: "address" },
+      { name: "actionType", type: "uint8" },
+      { name: "privacySetting", type: "uint8" },
+      { name: "createdAt", type: "uint256" },
+    ],
+    AwardWinningAction: [
+      { name: "regenerativeAction", type: "RegenerativeAction" },
       { name: "amount", type: "uint256" },
     ],
   };
+
   const value = {
-    account: "0x3d4670AE7C08e5812F616E16bCf14b79a25F6F53",
+    regenerativeAction: {
+      id: "1",
+      farmer: "0x58Dc4256E7E5402cc1A88d9A63c640B1A3959722",
+      actionType: 0,
+      privacySetting: 0,
+      createdAt: BigInt(1755622015040),
+    },
     amount: BigInt(1 * 1e18),
   };
 
