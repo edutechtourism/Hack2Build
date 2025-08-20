@@ -3,6 +3,7 @@ import { appNetworkRecord } from "@/contracts/settings";
 import { thirdwebClientSide } from "@/lib/thirdweb/client";
 import { ConnectButton } from "thirdweb/react";
 import { createWallet } from "thirdweb/wallets";
+import { generatePayload, isLoggedIn, login, logout } from "@/server/login";
 
 export const ConnectWallet = () => {
   const wallets = [createWallet("io.metamask"), createWallet("me.rainbow")];
@@ -19,20 +20,21 @@ export const ConnectWallet = () => {
           title: "HempSat",
           showThirdwebBranding: false,
         }}
-        // auth={{
-        //   async doLogin(params) {
-        //     // call your backend to verify the signed payload passed in params
-        //   },
-        //   async doLogout() {
-        //     // call your backend to logout the user if needed
-        //   },
-        //   async getLoginPayload(params) {
-        //     // call your backend and return the payload
-        //   },
-        //   async isLoggedIn() {
-        //     // call your backend to check if the user is logged in
-        //   },
-        // }}
+        auth={{
+          isLoggedIn: async (address) => {
+            console.log("checking if logged in!", { address });
+            return await isLoggedIn();
+          },
+          doLogin: async (params) => {
+            console.log("logging in!");
+            await login(params);
+          },
+          getLoginPayload: async ({ address }) => generatePayload({ address }),
+          doLogout: async () => {
+            console.log("logging out!");
+            await logout();
+          },
+        }}
         connectButton={{ label: "Sign in" }}
       />
     </div>
