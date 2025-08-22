@@ -1,12 +1,22 @@
+"use server";
+import {
+  ActionType,
+  PrivacySetting,
+} from "@/app/register_actions/_components/models";
 import { carbonEngineContracts } from "@/contracts/contracts";
 import { AppChainId } from "@/contracts/settings";
 import { TypedDataDomain, TypedDataField, ethers } from "ethers";
 
-export async function GET() {
+export const getSignatureForValidRegAction = async (
+  actionId: string,
+  farmerAddress: string,
+  actionType: ActionType,
+  privacySetting: PrivacySetting,
+  rewards: bigint
+) => {
   const validatorWalletPrivateKey = process.env.VALIDATOR_WALLET_PRIVATE_KEY!;
 
   const wallet = new ethers.Wallet(validatorWalletPrivateKey);
-  const publicAddress = await wallet.getAddress();
   const contractAddres = carbonEngineContracts[0].address;
 
   const domain: TypedDataDomain = {
@@ -32,20 +42,15 @@ export async function GET() {
 
   const value = {
     regenerativeAction: {
-      id: "1",
-      farmer: "0x58Dc4256E7E5402cc1A88d9A63c640B1A3959722",
-      actionType: 0,
-      privacySetting: 0,
-      createdAt: BigInt(1755622015040),
+      id: actionId,
+      farmer: farmerAddress,
+      actionType,
+      privacySetting,
+      createdAt: BigInt(Date.now()),
     },
-    amount: BigInt(1 * 1e18),
+    amount: rewards,
   };
 
   const signature = await wallet.signTypedData(domain, types, value);
-  const data = {
-    contractAddres,
-    publicAddress,
-    signature,
-  };
-  return Response.json({ data });
-}
+  return signature;
+};
