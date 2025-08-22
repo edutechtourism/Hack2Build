@@ -1,3 +1,4 @@
+import { carbonCreditTokenContracts } from "@/contracts/contracts";
 import { AppChainId } from "@/contracts/settings";
 import { getTokensBalance } from "@/server/commons";
 import { useEffect, useState } from "react";
@@ -22,7 +23,7 @@ export const WalletTokensBalance = ({
     const tokensBalance = await getTokensBalance(
       activeAccount.address,
       currentChainId,
-      [""]
+      ["", carbonCreditTokenContracts[0].address]
     );
     setWalletTokens(
       tokensBalance.map((_) => ({

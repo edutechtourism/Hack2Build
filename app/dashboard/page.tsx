@@ -1,6 +1,5 @@
 import { Account } from "@/components/Account";
-import { WalletTokensBalance } from "@/components/WalletTokensBalance";
-import { hempTokenContracts } from "@/contracts/contracts";
+import { carbonCreditTokenContracts } from "@/contracts/contracts";
 import { getContractByChainAndAddress } from "@/contracts/server";
 import { AppChainId } from "@/contracts/settings";
 import { isLoggedIn } from "@/server/login";
@@ -12,8 +11,8 @@ export default async function Page() {
 
   const tokenName = await readContract({
     contract: getContractByChainAndAddress(
-      AppChainId.avalancheFuji,
-      hempTokenContracts[0].address
+      AppChainId.hempLedger,
+      carbonCreditTokenContracts[0].address
     ),
     method: "function name() public view returns (string)",
     params: [],

@@ -1,3 +1,5 @@
+import { carbonEngineContracts } from "@/contracts/contracts";
+import { AppChainId } from "@/contracts/settings";
 import { TypedDataDomain, TypedDataField, ethers } from "ethers";
 
 export async function GET() {
@@ -5,12 +7,12 @@ export async function GET() {
 
   const wallet = new ethers.Wallet(validatorWalletPrivateKey);
   const publicAddress = await wallet.getAddress();
-  const contractAddres = "0x84B87EFf5C2D0ED3f2e98F3DfbF2736B0A037c5e";
+  const contractAddres = carbonEngineContracts[0].address;
 
   const domain: TypedDataDomain = {
-    chainId: 11155111,
+    chainId: AppChainId.hempLedger,
     verifyingContract: contractAddres,
-    name: "HempEngine",
+    name: "CarbonCreditEngine",
     version: "1.0.0",
   };
 
