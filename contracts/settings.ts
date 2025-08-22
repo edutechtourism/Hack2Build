@@ -33,7 +33,7 @@ export const appNetworkRecord: Record<
 export const appScanURLRecord: Record<AppChainId, string> = {
   // [AppChainId.avalancheFuji]: "https://snowtrace.io/tx",
   // [AppChainId.sepolia]: "https://sepolia.etherscan.io/tx",
-  [AppChainId.hempLedger]: "https://sepolia.etherscan.io/tx",
+  [AppChainId.hempLedger]: "",
 };
 
 export interface IAppContract {
