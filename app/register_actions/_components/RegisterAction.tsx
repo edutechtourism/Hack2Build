@@ -3,11 +3,29 @@
 import { getContractByChainAndAddress } from "@/contracts/client";
 import { carbonEngineContracts } from "@/contracts/contracts";
 import { AppChainId } from "@/contracts/settings";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { prepareContractCall } from "thirdweb";
 import { useActiveAccount, useSendAndConfirmTransaction } from "thirdweb/react";
+import { z } from "zod";
+
+const schema = z.object({
+  name: z.string().min(5),
+  level: z.number().int(),
+});
+type SchemaType = z.infer<typeof schema>;
 
 export const RegisterAction = () => {
   const activeAccount = useActiveAccount();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SchemaType>({
+    mode: "all",
+    resolver: zodResolver(schema),
+  });
 
   const { mutate, isPending, error, isError } = useSendAndConfirmTransaction();
 
