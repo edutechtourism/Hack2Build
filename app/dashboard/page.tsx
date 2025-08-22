@@ -1,3 +1,5 @@
+import { Account } from "@/components/Account";
+import { WalletTokensBalance } from "@/components/WalletTokensBalance";
 import { hempTokenContracts } from "@/contracts/contracts";
 import { getContractByChainAndAddress } from "@/contracts/server";
 import { AppChainId } from "@/contracts/settings";
@@ -21,7 +23,8 @@ export default async function Page() {
     <div>
       <div>Dashboard</div>
       <div>Token: {tokenName}</div>
-      <div></div>
+
+      <Account />
     </div>
   );
 }

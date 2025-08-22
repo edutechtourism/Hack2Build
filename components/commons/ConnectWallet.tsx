@@ -6,7 +6,10 @@ import { createWallet } from "thirdweb/wallets";
 import { generatePayload, isLoggedIn, login, logout } from "@/server/login";
 
 export const ConnectWallet = () => {
-  const wallets = [createWallet("io.metamask"), createWallet("me.rainbow")];
+  const wallets = [
+    createWallet("io.metamask"),
+    createWallet("app.core.extension"),
+  ];
 
   return (
     <div>
