@@ -3,6 +3,7 @@ import { VerifyLoginPayloadParams, createAuth } from "thirdweb/auth";
 import { privateKeyToAccount } from "thirdweb/wallets";
 import { cookies } from "next/headers";
 import { thirdwebServerSide } from "@/lib/thirdweb/server";
+import { redirect } from "next/navigation";
 
 const privateKey = process.env.AUTH_PRIVATE_KEY || "";
 
@@ -45,4 +46,5 @@ export async function isLoggedIn() {
 export async function logout() {
   const cookieStore = await cookies();
   cookieStore.delete("jwt");
+  redirect("/");
 }

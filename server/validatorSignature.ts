@@ -6,14 +6,35 @@ import {
 import { carbonEngineContracts } from "@/contracts/contracts";
 import { AppChainId } from "@/contracts/settings";
 import { TypedDataDomain, TypedDataField, ethers } from "ethers";
+import { Hex } from "thirdweb";
+
+export const evaluateRegenerativeAction = async (farmerAddress: string) => {
+  const currentTime = Date.now();
+  const signer = "0x79Ea116700B6cac3B0ed341aACd36dFfc7716001";
+  const regenarativeAction: readonly [string, string, number, number, bigint] =
+    [
+      `${currentTime}`,
+      farmerAddress,
+      ActionType.CoverCrop,
+      PrivacySetting.PUBLIC,
+      BigInt(currentTime),
+    ];
+
+  return { regenarativeAction, rewards: BigInt(1 * 1e18), signer };
+};
 
 export const getSignatureForValidRegAction = async (
-  actionId: string,
-  farmerAddress: string,
-  actionType: ActionType,
-  privacySetting: PrivacySetting,
+  action: {
+    actionId: string;
+    farmerAddress: string;
+    actionType: ActionType;
+    privacySetting: PrivacySetting;
+    createdAt: bigint;
+  },
   rewards: bigint
 ) => {
+  const { actionId, farmerAddress, actionType, createdAt, privacySetting } =
+    action;
   const validatorWalletPrivateKey = process.env.VALIDATOR_WALLET_PRIVATE_KEY!;
 
   const wallet = new ethers.Wallet(validatorWalletPrivateKey);
@@ -46,11 +67,11 @@ export const getSignatureForValidRegAction = async (
       farmer: farmerAddress,
       actionType,
       privacySetting,
-      createdAt: BigInt(Date.now()),
+      createdAt,
     },
     amount: rewards,
   };
 
   const signature = await wallet.signTypedData(domain, types, value);
-  return signature;
+  return signature as Hex;
 };
