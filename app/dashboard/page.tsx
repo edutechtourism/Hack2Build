@@ -1,11 +1,12 @@
 import { Account } from "@/components/Account";
 import { AdviceCard } from "@/components/adviceCard/AdviceCard";
 import { Telemetry } from "@/components/adviceCard/Telemetry";
+import { CommonLayout } from "@/components/commons/CommonLayout";
 
 export default async function Page() {
   return (
-    <div>
-      <div className="p-6 space-y-8">
+    <CommonLayout>
+      <div className="space-y-8">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Hempsat Dashboard</h1>
         </div>
@@ -22,6 +23,6 @@ export default async function Page() {
           <Telemetry />
         </section>
       </div>
-    </div>
+    </CommonLayout>
   );
 }

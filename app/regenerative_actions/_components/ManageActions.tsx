@@ -23,14 +23,16 @@ export const ManageActions = () => {
       params: [farmerAddress],
     });
   };
+  const onFetchRecorderByFarmer = async (wallet: string) => {
+    setIsLoading(true);
+    const recorder = await fetchRecorderByFarmer(wallet);
+    setRecorder(recorder);
+    setIsLoading(false);
+  };
 
   useEffect(() => {
     if (activeAccount) {
-      setIsLoading(true);
-      fetchRecorderByFarmer(activeAccount.address).then((_) => {
-        setRecorder(_);
-        setIsLoading(false);
-      });
+      onFetchRecorderByFarmer(activeAccount.address);
     }
   }, [activeAccount]);
 
