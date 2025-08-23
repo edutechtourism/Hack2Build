@@ -1,24 +1,38 @@
-'use client';
+"use client";
 
 import { useEffect } from "react";
-import { useAccount } from "wagmi";
+import { useActiveAccount } from "thirdweb/react";
 
-export function Telemetry() {
-  const { isConnected, address } = useAccount();
+type TelemetryProps = {
+  onConnect?: (data: { address: string; timestamp: string }) => void;
+};
+
+export function Telemetry({ onConnect }: TelemetryProps) {
+  const account = useActiveAccount();
 
   useEffect(() => {
-    if (isConnected && address) {
+    if (account) {
       const timestamp = new Date().toISOString();
+      const payload = { address: account.address, timestamp };
 
-      // Log to console
-      console.log("Wallet connected:", { address, timestamp });
+      // 🔹 Always log & save locally
+      console.log("Wallet connected:", payload);
+      localStorage.setItem("walletConnection", JSON.stringify(payload));
 
-      // Save to localStorage
-      const logs = JSON.parse(localStorage.getItem("walletConnections") || "[]");
-      logs.push({ address, timestamp });
-      localStorage.setItem("walletConnections", JSON.stringify(logs));
+      // 🔹 Optional: allow external devs to hook in their logic
+      if (onConnect) {
+        onConnect(payload);
+      }
     }
-  }, [isConnected, address]);
+  }, [account, onConnect]);
 
-  return null; // This component doesn't render anything
+  return (
+    <div className="p-4 bg-white/5 rounded-md">
+      {account ? (
+        <p className="text-green-500">✅ Connected: {account.address}</p>
+      ) : (
+        <p className="text-gray-400">Not connected</p>
+      )}
+    </div>
+  );
 }

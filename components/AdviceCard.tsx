@@ -1,16 +1,22 @@
+"use client";
+
 type Props = {
-  et0: number;
-  rainfall: number;
-  forecastRain: number;
+  et0?: number;
+  rainfall?: number;
+  forecastRain?: number;
 };
 
 export function AdviceCard({ et0, rainfall, forecastRain }: Props) {
   let advice = "Waiting for advice...";
 
-  if (forecastRain > 80) {
-    advice = "Too much rain expected – no irrigation needed.";
-  } else if (et0 > 50 && rainfall < 10) {
-    advice = "Irrigation recommended.";
+  if (forecastRain !== undefined && et0 !== undefined && rainfall !== undefined) {
+    if (forecastRain > 80) {
+      advice = "Too much rain expected – no irrigation needed.";
+    } else if (et0 > 50 && rainfall < 10) {
+      advice = "Irrigation recommended.";
+    } else {
+      advice = "Conditions are normal.";
+    }
   }
 
   return (
