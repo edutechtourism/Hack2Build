@@ -36,7 +36,9 @@ export const WalletTokensBalance = ({
   };
 
   useEffect(() => {
-    fetchWalletTokens(activeAccount);
+    if (activeAccount) {
+      fetchWalletTokens(activeAccount);
+    }
   }, [activeAccount]);
 
   return (

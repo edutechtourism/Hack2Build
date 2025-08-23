@@ -9,3 +9,9 @@ export enum PrivacySetting {
   ANON,
   PUBLIC,
 }
+
+export interface IRegenerativeAction {
+  farmerAddress: string;
+  actionType: ActionType;
+  privacySetting: PrivacySetting;
+}

@@ -1,6 +1,7 @@
 import { getContractByChainAndAddress } from "@/contracts/client";
 import { carbonEngineContracts } from "@/contracts/contracts";
 import { AppChainId } from "@/contracts/settings";
+import { saveEncryptedAction } from "@/server/manageActions";
 import {
   evaluateRegenerativeAction,
   getSignatureForValidRegAction,
@@ -10,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { prepareContractCall } from "thirdweb";
 import { useSendAndConfirmTransaction } from "thirdweb/react";
 import { z } from "zod";
+import { ActionType, IRegenerativeAction, PrivacySetting } from "./models";
 
 const schema = z.object({
   name: z.string().min(5),
@@ -55,6 +57,13 @@ export const RegisterAction = ({
       params: [regenarativeAction, farmerRegistry, rewards, signer, signature],
     });
     mutate(tx);
+
+    const action: IRegenerativeAction = {
+      actionType: ActionType.CoverCrop,
+      farmerAddress,
+      privacySetting: PrivacySetting.ANON,
+    };
+    await saveEncryptedAction(action);
   };
 
   return (

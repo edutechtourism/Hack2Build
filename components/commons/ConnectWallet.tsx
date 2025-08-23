@@ -3,13 +3,15 @@ import { appNetworkRecord } from "@/contracts/settings";
 import { thirdwebClientSide } from "@/lib/thirdweb/client";
 import { ConnectButton } from "thirdweb/react";
 import { createWallet } from "thirdweb/wallets";
-import { generatePayload, isLoggedIn, login, logout } from "@/server/login";
+import { generatePayload, isLoggedIn, login, logout } from "@/server/SIWE";
+import { useRouter } from "next/navigation";
 
 export const ConnectWallet = () => {
   const wallets = [
     createWallet("io.metamask"),
     createWallet("app.core.extension"),
   ];
+  const router = useRouter();
 
   return (
     <div>
@@ -36,6 +38,7 @@ export const ConnectWallet = () => {
           doLogout: async () => {
             console.log("logging out!");
             await logout();
+            router.refresh();
           },
         }}
         connectButton={{ label: "Sign in" }}
