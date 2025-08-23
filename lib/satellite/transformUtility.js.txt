@@ -1,0 +1,60 @@
+/**
+ * Normalize raw Landsat response
+ */
+export function transformLandsat(raw) {
+  return {
+    imageUrl: raw.url,
+    date: raw.date,
+    cloudScore: raw.cloud_score,
+    location: raw.location
+  };
+}
+
+/**
+ * Normalize raw Sentinel response
+ */
+export function transformSentinel(raw) {
+  return {
+    imageUrl: raw.image_url,
+    timestamp: raw.timestamp,
+    vegetationIndex: raw.vegetation_index,
+    waterPresence: raw.water_presence,
+    terrainType: raw.terrain_type,
+    location: raw.location
+  };
+}
+
+/**
+ * Normalize raw NOAA response
+ */
+export function transformNOAA(raw) {
+  return {
+    temperatureC: raw.temperature_celsius,
+    humidityPct: raw.humidity_percent,
+    cloudCover: raw.cloud_cover,
+    windSpeedKph: raw.wind_speed_kph,
+    weatherCondition: raw.weather_condition,
+    location: raw.location
+  };
+}
+
+/**
+ * Normalize raw Open-Meteo response
+ */
+export function transformOpenMeteo(raw) {
+  return {
+    current: {
+      temperature: raw.current_weather.temperature,
+      windSpeed: raw.current_weather.windspeed,
+      windDirection: raw.current_weather.winddirection,
+      weatherCode: raw.current_weather.weathercode,
+      time: raw.current_weather.time
+    },
+    hourly: {
+      temperature2m: raw.hourly.temperature_2m,
+      precipitation: raw.hourly.precipitation,
+      cloudCover: raw.hourly.cloudcover
+    },
+    location: raw.location
+  };
+}

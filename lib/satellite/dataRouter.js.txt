@@ -1,0 +1,34 @@
+// dataRouter.js
+import { fetchLandsatData } from './landsatFetcher.js';
+import { fetchSentinelData } from './sentinelFetcher.js';
+import { fetchNOAAData } from './noaaFetcher.js';
+import { fetchOpenMeteoData } from './openMeteoFetcher.js';
+
+export async function fetchAllData(latitude, longitude) {
+  try {
+    // Kick off all fetches in parallel
+    const [
+      landsat,
+      sentinel,
+      noaa,
+      openMeteo
+    ] = await Promise.all([
+      fetchLandsatData(latitude, longitude),
+      fetchSentinelData(latitude, longitude),
+      fetchNOAAData(latitude, longitude),
+      fetchOpenMeteoData(latitude, longitude)
+    ]);
+
+    // Merge into one payload
+    return {
+      location: { lat: latitude, lon: longitude },
+      landsat,
+      sentinel,
+      noaa,
+      openMeteo
+    };
+  } catch (error) {
+    console.error('🚨 fetchAllData error:', error);
+    throw error;
+  }
+}

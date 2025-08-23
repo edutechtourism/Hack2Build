@@ -1,0 +1,18 @@
+// noaaFetcher.js
+export async function fetchNOAAData(latitude, longitude) {
+  const useMock = process.env.USE_MOCK === 'true';
+
+  if (useMock) {
+    console.log("🧪 Using mock NOAA data");
+    return {
+      temperature_celsius: 22.5,
+      humidity_percent: 65,
+      cloud_cover: 0.3,
+      wind_speed_kph: 12,
+      weather_condition: "partly cloudy",
+      location: { lat: latitude, lon: longitude }
+    };
+  }
+
+  // Live API logic here...
+}

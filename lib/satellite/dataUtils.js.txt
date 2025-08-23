@@ -1,0 +1,70 @@
+import { fetchWithCache } from './fetchUtility.js';
+import {
+  transformLandsat,
+  transformSentinel,
+  transformNOAA,
+  transformOpenMeteo
+} from './transformUtility.js';
+
+const LANDSAT_URL = 'https://api.nasa.gov/planetary/earth/assets';
+const SENTINEL_URL = 'https://api.example.com/sentinel';
+const NOAA_URL     = 'https://api.example.com/noaa';
+const OPENMETEO_URL = 'https://api.open-meteo.com/v1/forecast';
+
+export async function getLandsatData(lat, lon) {
+  const key = `landsat:${lat}:${lon}`;
+  const raw = await fetchWithCache(
+    key,
+    LANDSAT_URL,
+    { lat, lon, dim: 0.1, date: '2023-06-01', api_key: process.env.LANDSAT_API_KEY },
+    3600
+  );
+  return transformLandsat(raw);
+}
+
+export async function getSentinelData(lat, lon) {
+  const key = `sentinel:${lat}:${lon}`;
+  const raw = await fetchWithCache(
+    key,
+    SENTINEL_URL,
+    { lat, lon, api_key: process.env.SENTINEL_API_KEY },
+    86400
+  );
+  return transformSentinel(raw);
+}
+
+export async function getNOAAData(lat, lon) {
+  const key = `noaa:${lat}:${lon}`;
+  const raw = await fetchWithCache(
+    key,
+    NOAA_URL,
+    { lat, lon, api_key: process.env.NOAA_API_KEY },
+    900
+  );
+  return transformNOAA(raw);
+}
+
+export async function getOpenMeteoData(lat, lon) {
+  const key = `openmeteo:${lat}:${lon}`;
+  const raw = await fetchWithCache(
+    key,
+    OPENMETEO_URL,
+    { latitude: lat, longitude: lon, hourly: 'temperature_2m,precipitation,cloudcover', current_weather: true },
+    300
+  );
+  return transformOpenMeteo(raw);
+}
+
+/**
+ * Unified fetchAllData call
+ */
+export async function fetchAllData(lat, lon) {
+  const [landsat, sentinel, noaa, openMeteo] = await Promise.all([
+    getLandsatData(lat, lon),
+    getSentinelData(lat, lon),
+    getNOAAData(lat, lon),
+    getOpenMeteoData(lat, lon)
+  ]);
+
+  return { location: { lat, lon }, landsat, sentinel, noaa, openMeteo };
+}

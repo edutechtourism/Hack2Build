@@ -1,0 +1,20 @@
+import axios from 'axios';
+import { getCached, setCached } from './cacheUtility.js';
+
+/**
+ * Fetch JSON from URL with params, caching under cacheKey.
+ * Returns parsed JSON.
+ */
+export async function fetchWithCache(cacheKey, url, params = {}, ttlSeconds = 600) {
+  const cached = getCached(cacheKey);
+  if (cached) {
+    console.log(`🗄️ Cache hit: ${cacheKey}`);
+    return cached;
+  }
+
+  console.log(`🌐 Fetching: ${cacheKey}`);
+  const response = await axios.get(url, { params });
+  const data = response.data;
+  setCached(cacheKey, data, ttlSeconds);
+  return data;
+}

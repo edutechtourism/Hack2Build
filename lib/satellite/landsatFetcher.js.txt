@@ -1,0 +1,36 @@
+require('dotenv').config();
+const axios = require('axios');
+
+const useMock = process.env.USE_MOCK === 'true';
+
+export async function fetchLandsatData(latitude, longitude) {
+  if (useMock) {
+    console.log("🧪 Using mock Landsat data");
+    return {
+      url: "https://mocked-image-url.com/landsat.jpg",
+      date: "2023-06-01",
+      cloud_score: 0.1,
+      location: { lat: latitude, lon: longitude }
+    };
+  }
+
+  const apiKey = process.env.LANDSAT_API_KEY;
+  const url = `https://api.nasa.gov/planetary/earth/assets`;
+
+  try {
+    const response = await axios.get(url, {
+      params: {
+        lon: longitude,
+        lat: latitude,
+        dim: 0.1,
+        date: '2023-06-01',
+        api_key: apiKey
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("🚨 Landsat fetch error:", error.message);
+    return null;
+  }
+}
