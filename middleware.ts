@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isLoggedIn } from "./server/login";
 
-const PROTECTED_ROUTES = ["/dashboard", "/register_actions"] as const;
+const PROTECTED_ROUTES = ["/dashboard", "/regenerative_actions"] as const;
 
 export default async function middleware(request: NextRequest) {
   const session = await isLoggedIn();

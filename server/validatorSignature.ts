@@ -2,7 +2,7 @@
 import {
   ActionType,
   PrivacySetting,
-} from "@/app/register_actions/_components/models";
+} from "@/app/regenerative_actions/_components/models";
 import { carbonEngineContracts } from "@/contracts/contracts";
 import { AppChainId } from "@/contracts/settings";
 import { TypedDataDomain, TypedDataField, ethers } from "ethers";

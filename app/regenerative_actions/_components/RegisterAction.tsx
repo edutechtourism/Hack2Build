@@ -1,6 +1,7 @@
 import { getContractByChainAndAddress } from "@/contracts/client";
 import { carbonEngineContracts } from "@/contracts/contracts";
 import { AppChainId } from "@/contracts/settings";
+import { saveEncryptedAction } from "@/server/manageActions";
 import {
   evaluateRegenerativeAction,
   getSignatureForValidRegAction,
@@ -10,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { prepareContractCall } from "thirdweb";
 import { useSendAndConfirmTransaction } from "thirdweb/react";
 import { z } from "zod";
+import { ActionType, IRegenerativeAction, PrivacySetting } from "./models";
 
 const schema = z.object({
   name: z.string().min(5),
@@ -54,7 +56,14 @@ export const RegisterAction = ({
         "function claimCarbonCredits((string,address,uint8,uint8,uint256) memory _regenarativeAction, address _farmerRegistry, uint256 _amount, address _signer, bytes memory _signature) external",
       params: [regenarativeAction, farmerRegistry, rewards, signer, signature],
     });
-    mutate(tx);
+    // mutate(tx);
+
+    const action: IRegenerativeAction = {
+      actionType: ActionType.CoverCrop,
+      farmerAddress,
+      privacySetting: PrivacySetting.ANON,
+    };
+    await saveEncryptedAction(action);
   };
 
   return (
