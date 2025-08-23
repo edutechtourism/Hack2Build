@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ConnectWallet } from "./ConnectWallet";
+//import { ConnectWallet } from "./ConnectWallet";
 
 export const MainHeader = () => {
   return (
@@ -12,7 +12,7 @@ export const MainHeader = () => {
         </div>
       </div>
       <div>
-        <ConnectWallet />
+        {/* <ConnectWallet />  <- safely commented out */}
       </div>
     </div>
   );
