@@ -1,4 +1,4 @@
-// Define the shape of a telemetry log entry
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type TelemetryEvent = {
   event: string;
   timestamp: string;
