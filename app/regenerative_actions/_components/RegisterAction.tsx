@@ -56,7 +56,7 @@ export const RegisterAction = ({
         "function claimCarbonCredits((string,address,uint8,uint8,uint256) memory _regenarativeAction, address _farmerRegistry, uint256 _amount, address _signer, bytes memory _signature) external",
       params: [regenarativeAction, farmerRegistry, rewards, signer, signature],
     });
-    // mutate(tx);
+    mutate(tx);
 
     const action: IRegenerativeAction = {
       actionType: ActionType.CoverCrop,
