@@ -1,0 +1,24 @@
+// server.js (or api.js)
+import express from 'express';
+import { fetchAllData } from './dataRouter.js';
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get('/api/data', async (req, res) => {
+  const { lat, lon } = req.query;
+  if (!lat || !lon) {
+    return res.status(400).send({ error: 'Missing lat or lon query parameters' });
+  }
+
+  try {
+    const data = await fetchAllData(Number(lat), Number(lon));
+    res.json(data);
+  } catch {
+    res.status(500).send({ error: 'Failed to fetch environmental data' });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server listening on http://localhost:${PORT}`);
+});
