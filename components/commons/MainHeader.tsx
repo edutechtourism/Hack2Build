@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ConnectWallet } from "./ConnectWallet";
+import { HeaderLinks } from "./HeaderLinks";
 
 export const MainHeader = () => {
   return (
@@ -12,11 +13,7 @@ export const MainHeader = () => {
         </div>
       </div>
       <div className="flex items-center space-x-6">
-        <div>
-          <Link href={"/dashboard"} className="font-bold underline">
-            Dashboard
-          </Link>
-        </div>
+        <HeaderLinks />
         <ConnectWallet />
       </div>
     </div>

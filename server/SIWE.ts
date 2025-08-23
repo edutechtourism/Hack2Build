@@ -28,6 +28,7 @@ export async function login(payload: VerifyLoginPayloadParams) {
 
     const cookieStore = await cookies();
     cookieStore.set("jwt", jwt);
+    redirect("/dashboard");
   }
 }
 

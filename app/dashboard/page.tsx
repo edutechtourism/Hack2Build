@@ -1,6 +1,6 @@
 import { Account } from "@/components/Account";
-import { AdviceCard } from "@/components/AdviceCard";
-import { Telemetry } from "@/components/Telemetry";
+import { AdviceCard } from "@/components/adviceCard/AdviceCard";
+import { Telemetry } from "@/components/adviceCard/Telemetry";
 
 export default async function Page() {
   return (
