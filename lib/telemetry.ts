@@ -5,7 +5,7 @@ export type TelemetryEvent = {
   data?: Record<string, any>;
 };
 
-/**
+/** added 
  * Logs a telemetry event to localStorage (and console).
  *
  * This utility function can be imported and called anywhere in the app.
