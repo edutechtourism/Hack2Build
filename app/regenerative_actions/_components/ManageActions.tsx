@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { isAddress, readContract, ZERO_ADDRESS } from "thirdweb";
 import { useActiveAccount } from "thirdweb/react";
 import { RegisterAction } from "./RegisterAction";
+import { CreateFarmerRegistry } from "./CreateFarmerRegistry";
 
 export const ManageActions = () => {
   const activeAccount = useActiveAccount();
@@ -49,7 +50,7 @@ export const ManageActions = () => {
             farmerRegistry={recorder}
           />
         ) : (
-          <div>Need a factory</div>
+          <CreateFarmerRegistry farmerAddress={activeAccount.address} />
         )}
       </>
     </div>
