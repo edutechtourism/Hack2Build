@@ -1,38 +1,99 @@
 ## SMART CONTRACT REPOSITORY. https://github.com/cnerylozada/hack2build_contracts
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+📜 Hack2Build Smart Contracts
 
-## Getting Started
+This repository contains all on-chain logic for the Hack2Build project.
+It is separated from the frontend/monorepo to ensure clear boundaries between smart contracts and application logic.
 
-First, run the development server:
+📂 Repository Structure
+hack2build-contracts/
+│
+├── contracts/            # Solidity smart contracts
+│   ├── HempSatToken.sol  # Example ERC20/utility token
+│   ├── AdviceRegistry.sol# Stores and retrieves advice entries
+│   └── Telemetry.sol     # Records telemetry events from connected wallets
+│
+├── scripts/              # Deployment & interaction scripts
+│   ├── deploy.js
+│   └── verify.js
+│
+├── test/                 # Hardhat/Foundry test cases
+│   ├── HempSatToken.test.js
+│   └── AdviceRegistry.test.js
+│
+├── hardhat.config.js     # Hardhat configuration
+├── package.json          # NPM dependencies (ethers, hardhat, chai, etc.)
+└── README.md             # Documentation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🚀 Getting Started
+1. Install dependencies
+npm install
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Compile contracts
+npx hardhat compile
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run tests
+npx hardhat test
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Deploy to Avalanche Fuji (testnet)
 
-## Learn More
+Create a .env file with:
 
-To learn more about Next.js, take a look at the following resources:
+PRIVATE_KEY=your_wallet_private_key
+RPC_URL=https://api.avax-test.network/ext/bc/C/rpc
+ETHERSCAN_API_KEY=your_key   # for verification
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Then:
 
-## Deploy on Vercel
+npx hardhat run scripts/deploy.js --network fuji
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🔑 Core Contracts
+HempSatToken.sol
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ERC20 utility token.
+
+Used for incentivizing data providers (satellite + field devs).
+
+AdviceRegistry.sol
+
+Stores irrigation/weather advice for specific plots.
+
+Advice can be submitted by approved oracle providers.
+
+Telemetry.sol
+
+Records telemetry events such as wallet connections, plot updates, or satellite data logs.
+
+Optional hooks for off-chain indexing.
+
+🧪 Testing
+
+Unit tests written in Mocha/Chai (default Hardhat).
+
+Coverage report available via npx hardhat coverage.
+
+📡 Deployment Plan
+
+Fuji Testnet for Hackathon demo.
+
+Later upgrade to Avalanche Subnet for scalability.
+
+🛠 Tech Stack
+
+Solidity (0.8.x)
+
+Hardhat (deployment + testing)
+
+Ethers.js (interactions)
+
+Avalanche Fuji testnet
+
+🤝 Contribution
+
+Create a new branch: feature/contract-name
+
+Submit PR → reviewed by core devs.
+
+⚡ This repo keeps the blockchain logic modular and separate from the UI (in the main Hack2Build monorepo).
+That way, frontend devs can consume deployed contract addresses & ABIs without touching Solidity.
