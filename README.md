@@ -1,99 +1,100 @@
 ## SMART CONTRACT REPOSITORY. https://github.com/cnerylozada/hack2build_contracts
 
-📜 Hack2Build Smart Contracts
+# 🌱 HempSat Dashboard
 
-This repository contains all on-chain logic for the Hack2Build project.
-It is separated from the frontend/monorepo to ensure clear boundaries between smart contracts and application logic.
+[![Deploy on Vercel](https://vercel.com/button)](https://hempsat.app/)
 
-📂 Repository Structure
-hack2build-contracts/
-│
-├── contracts/            # Solidity smart contracts
-│   ├── HempSatToken.sol  # Example ERC20/utility token
-│   ├── AdviceRegistry.sol# Stores and retrieves advice entries
-│   └── Telemetry.sol     # Records telemetry events from connected wallets
-│
-├── scripts/              # Deployment & interaction scripts
-│   ├── deploy.js
-│   └── verify.js
-│
-├── test/                 # Hardhat/Foundry test cases
-│   ├── HempSatToken.test.js
-│   └── AdviceRegistry.test.js
-│
-├── hardhat.config.js     # Hardhat configuration
-├── package.json          # NPM dependencies (ethers, hardhat, chai, etc.)
-└── README.md             # Documentation
+HempSat is a **next-generation agricultural telemetry and advisory platform** built during Hack2Build.  
+It combines **satellite data**, **plot-level insights**, and **blockchain-enabled wallet integration** into one clean, extensible dashboard.
 
-🚀 Getting Started
-1. Install dependencies
+---
+
+## ✨ Features
+
+### 📡 AdviceCard
+- Accepts dynamic inputs (`et0`, `rainfall`, `forecastRain`) instead of hardcoded values.  
+- Provides **real-time irrigation advice** with fallback messaging.  
+- Modular — satellite/weather developers can plug in their APIs directly.  
+
+### ⚡ Telemetry
+- Displays **wallet connection status** (Connected / Not connected).  
+- Logs connection info (address + timestamp) to console + localStorage.  
+- Extensible: add your own logic via `onConnect` (e.g., push wallet activity to backend).  
+
+### 🔗 Wallet Connect
+- Powered by **thirdweb**.  
+- Supports MetaMask and Core wallet.  
+- Authentication flow ready for secure API integrations.  
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+
+### Clone the repository
+```bash
+git clone https://github.com/edutechtourism/Hack2Build.git
+cd Hack2Build
+Install dependencies
+bash
+Copy code
 npm install
+Environment variables
+Create a .env.local file in the project root:
 
-2. Compile contracts
-npx hardhat compile
+env
+Copy code
+AUTH_PRIVATE_KEY=your_private_key_here
+THIRDWEB_SECRET_KEY=your_secret_key_here
+NEXT_PUBLIC_THIRDWEB_CLIENT_ID=your_client_id_here
+(These are already .gitignored and will not be pushed to GitHub.)
 
-3. Run tests
-npx hardhat test
+Run locally
+bash
+Copy code
+npm run dev
+Visit http://localhost:3000.
 
-4. Deploy to Avalanche Fuji (testnet)
+🌍 Deployment
+We deploy on Vercel.
+The app is live here: hempsat.app ✅
 
-Create a .env file with:
+👩‍💻 Development Workflow
+Work on feature branches (e.g., feature/advice-telemetry).
 
-PRIVATE_KEY=your_wallet_private_key
-RPC_URL=https://api.avax-test.network/ext/bc/C/rpc
-ETHERSCAN_API_KEY=your_key   # for verification
+Open a Pull Request for review before merging into develop.
 
+Protected keys/secrets are managed in Vercel Environment Variables.
 
-Then:
+🛠️ Tech Stack
+Next.js 15 (App Router)
 
-npx hardhat run scripts/deploy.js --network fuji
+thirdweb (Wallet + Auth)
 
-🔑 Core Contracts
-HempSatToken.sol
+React Query (Data fetching & caching)
 
-ERC20 utility token.
+Tailwind CSS (Styling)
 
-Used for incentivizing data providers (satellite + field devs).
+🏆 Hackathon Context
+This project was built during Hack2Build to showcase:
 
-AdviceRegistry.sol
+🚀 Clean modular UI ready for API integration
 
-Stores irrigation/weather advice for specific plots.
+📡 Satellite & plot telemetry support
 
-Advice can be submitted by approved oracle providers.
+🌱 Practical agricultural advisory logic
 
-Telemetry.sol
+🔗 Blockchain-enabled interactions
 
-Records telemetry events such as wallet connections, plot updates, or satellite data logs.
+👥 Team
+Collin Petersen – Artist & AR Game Dev, frontend integration
 
-Optional hooks for off-chain indexing.
+Grim – Backend & blockchain dev
 
-🧪 Testing
+Contributors – Satellite API + Plot telemetry devs
 
-Unit tests written in Mocha/Chai (default Hardhat).
-
-Coverage report available via npx hardhat coverage.
-
-📡 Deployment Plan
-
-Fuji Testnet for Hackathon demo.
-
-Later upgrade to Avalanche Subnet for scalability.
-
-🛠 Tech Stack
-
-Solidity (0.8.x)
-
-Hardhat (deployment + testing)
-
-Ethers.js (interactions)
-
-Avalanche Fuji testnet
-
-🤝 Contribution
-
-Create a new branch: feature/contract-name
-
-Submit PR → reviewed by core devs.
-
-⚡ This repo keeps the blockchain logic modular and separate from the UI (in the main Hack2Build monorepo).
-That way, frontend devs can consume deployed contract addresses & ABIs without touching Solidity.
+📜 License
+MIT License — open for collaboration and extension.
