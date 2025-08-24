@@ -23,7 +23,7 @@ export function logTelemetryEvent(event: string, data?: Record<string, any>) {
     data,
   };
 
-  console.log("Telemetry Event:", log);
+  
 
   const logs = JSON.parse(localStorage.getItem("telemetry") || "[]");
   logs.push(log);
