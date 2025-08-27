@@ -2,8 +2,11 @@ import { Account } from "@/components/Account";
 import { AdviceCard } from "@/components/adviceCard/AdviceCard";
 import { Telemetry } from "@/components/adviceCard/Telemetry";
 import { CommonLayout } from "@/components/commons/CommonLayout";
+import { fetchSatelliteData } from "@/services/satelliteService";
 
 export default async function Page() {
+  const satData = await fetchSatelliteData(47.0, -65.0); // example coords
+
   return (
     <CommonLayout>
       <div className="space-y-8">

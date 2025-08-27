@@ -1,28 +1,30 @@
-"use client";
+interface AdviceCardProps {
+  et0: number;
+  rainfall: number;
+  forecastRain: number;
+}
 
-type Props = {
-  et0?: number;
-  rainfall?: number;
-  forecastRain?: number;
-};
+export function AdviceCard({ et0, rainfall, forecastRain }: AdviceCardProps) {
+  let message = "Conditions are normal.";
 
-export function AdviceCard({ et0, rainfall, forecastRain }: Props) {
-  let advice = "Waiting for advice...";
-
-  if (forecastRain !== undefined && et0 !== undefined && rainfall !== undefined) {
-    if (forecastRain > 80) {
-      advice = "Too much rain expected – no irrigation needed.";
-    } else if (et0 > 50 && rainfall < 10) {
-      advice = "Irrigation recommended.";
-    } else {
-      advice = "Conditions are normal.";
-    }
+  if (et0 >= 6 && rainfall < 2) {
+    message = "High evapotranspiration with low rainfall — irrigation recommended.";
+  } else if (et0 >= 4 && rainfall === 0) {
+    message = "Dry conditions detected — monitor closely and consider watering.";
+  } else if (forecastRain > 5) {
+    message = "Significant rainfall expected tomorrow — irrigation may not be needed.";
   }
 
   return (
-    <div className="rounded-lg shadow-md p-6 bg-white text-gray-900 max-w-sm">
-      <h2 className="text-xl font-bold mb-2">Advice</h2>
-      <p>{advice}</p>
+    <div className="bg-white/10 p-4 rounded-xl shadow">
+      <h3 className="text-lg font-semibold">Advice</h3>
+      <p>{message}</p>
+
+      <div className="mt-2 text-sm text-gray-400">
+        <p>ET₀ today: {et0.toFixed(1)} mm</p>
+        <p>Rainfall today: {rainfall.toFixed(1)} mm</p>
+        <p>Rain forecast tomorrow: {forecastRain.toFixed(1)} mm</p>
+      </div>
     </div>
   );
 }

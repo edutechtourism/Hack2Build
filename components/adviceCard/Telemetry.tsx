@@ -1,37 +1,38 @@
 "use client";
 
-import { useEffect } from "react";
-import { useActiveAccount } from "thirdweb/react";
+import { getTelemetryLogs } from "@/lib/telemetry";
 
-type TelemetryProps = {
-  onConnect?: (data: { address: string; timestamp: string }) => void;
-};
+interface TelemetryProps {
+  data?: any;
+}
 
-export function Telemetry({ onConnect }: TelemetryProps) {
-  const account = useActiveAccount();
-
-  useEffect(() => {
-    if (account) {
-      const timestamp = new Date().toISOString();
-      const payload = { address: account.address, timestamp };
-
-      // 🔹 Always log & save locally
-      console.log("Wallet connected:", payload);
-      localStorage.setItem("walletConnection", JSON.stringify(payload));
-
-      // 🔹 Optional: allow external devs to hook in their logic
-      if (onConnect) {
-        onConnect(payload);
-      }
-    }
-  }, [account, onConnect]);
+export function Telemetry({ data }: TelemetryProps) {
+  const logs = getTelemetryLogs();
 
   return (
-    <div className="p-4 bg-white/5 rounded-md">
-      {account ? (
-        <p className="text-green-500">✅ Connected: {account.address}</p>
+    <div>
+      <h3>Telemetry Logs</h3>
+      {logs.length === 0 ? (
+        <p>No telemetry events yet.</p>
       ) : (
-        <p className="text-gray-400">Not connected</p>
+        <ul>
+          {logs.map((log, i) => (
+            <li key={i}>
+              <strong>{log.event}</strong> at {log.timestamp}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <h3 className="mt-4">Satellite Data</h3>
+      {data ? (
+        <div>
+          <p>ET₀: {data.et0 ?? "N/A"}</p>
+          <p>Rainfall today: {data.rainfall ?? "N/A"} mm</p>
+          <p>Rainfall tomorrow: {data.forecastRain ?? "N/A"} mm</p>
+        </div>
+      ) : (
+        <p>No satellite data yet.</p>
       )}
     </div>
   );
