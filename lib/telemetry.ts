@@ -2,7 +2,7 @@
 export type TelemetryEvent = {
   event: string;
   timestamp: string;
-  data?: Record<string, unknown>; // ✅ safer than "any"
+  data?: Record<string, unknown>; // safer than "any"
 };
 
 /**
@@ -14,20 +14,16 @@ export type TelemetryEvent = {
 export function logTelemetryEvent(event: string, data?: Record<string, unknown>) {
   const timestamp = new Date().toISOString();
 
-  const log: TelemetryEvent = {
-    event,
-    timestamp,
-    data,
-  };
+  const log: TelemetryEvent = { event, timestamp, data };
 
-  // Save in localStorage
+  // Save in localStorage only in the browser
   if (typeof window !== "undefined") {
     const logs = JSON.parse(localStorage.getItem("telemetry") || "[]");
     logs.push(log);
     localStorage.setItem("telemetry", JSON.stringify(logs));
   }
 
-  console.log("Telemetry Event:", log);
+  console.log("Telemetry event logged:", log);
 }
 
 /**

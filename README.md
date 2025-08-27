@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## SMART CONTRACT REPOSITORY. https://github.com/cnerylozada/hack2build_contracts
 
-## Getting Started
+# 🌱 HempSat Dashboard
 
-First, run the development server:
+[![Deploy on Vercel](https://vercel.com/button)](https://hempsat.app/)
 
+HempSat is a **next-generation agricultural telemetry and advisory platform** built during Hack2Build.  
+It combines **satellite data**, **plot-level insights**, and **blockchain-enabled wallet integration** into one clean, extensible dashboard.
+
+---
+
+## ✨ Features
+
+### 📡 AdviceCard
+- Accepts dynamic inputs (`et0`, `rainfall`, `forecastRain`) instead of hardcoded values.  
+- Provides **real-time irrigation advice** with fallback messaging.  
+- Modular — satellite/weather developers can plug in their APIs directly.  
+
+### ⚡ Telemetry
+- Displays **wallet connection status** (Connected / Not connected).  
+- Logs connection info (address + timestamp) to console + localStorage.  
+- Extensible: add your own logic via `onConnect` (e.g., push wallet activity to backend).  
+
+### 🔗 Wallet Connect
+- Powered by **thirdweb**.  
+- Supports MetaMask and Core wallet.  
+- Authentication flow ready for secure API integrations.  
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+
+### Clone the repository
 ```bash
+git clone https://github.com/edutechtourism/Hack2Build.git
+cd Hack2Build
+Install dependencies
+bash
+Copy code
+npm install
+Environment variables
+Create a .env.local file in the project root:
+
+env
+Copy code
+AUTH_PRIVATE_KEY=your_private_key_here
+THIRDWEB_SECRET_KEY=your_secret_key_here
+NEXT_PUBLIC_THIRDWEB_CLIENT_ID=your_client_id_here
+(These are already .gitignored and will not be pushed to GitHub.)
+
+Run locally
+bash
+Copy code
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Visit http://localhost:3000.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🌍 Deployment
+We deploy on Vercel.
+The app is live here: hempsat.app ✅
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+👩‍💻 Development Workflow
+Work on feature branches (e.g., feature/advice-telemetry).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open a Pull Request for review before merging into develop.
 
-## Learn More
+Protected keys/secrets are managed in Vercel Environment Variables.
 
-To learn more about Next.js, take a look at the following resources:
+🛠️ Tech Stack
+Next.js 15 (App Router)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+thirdweb (Wallet + Auth)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+React Query (Data fetching & caching)
 
-## Deploy on Vercel
+Tailwind CSS (Styling)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🏆 Hackathon Context
+This project was built during Hack2Build to showcase:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🚀 Clean modular UI ready for API integration
+
+📡 Satellite & plot telemetry support
+
+🌱 Practical agricultural advisory logic
+
+🔗 Blockchain-enabled interactions
+
+👥 Team
+Collin Petersen – Artist & AR Game Dev, frontend integration
+
+Grim – Backend & blockchain dev
+
+Contributors – Satellite API + Plot telemetry devs
+
+📜 License
+MIT License — open for collaboration and extension.

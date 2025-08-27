@@ -35,7 +35,8 @@ export const getSignatureForValidRegAction = async (
 ) => {
   const { actionId, farmerAddress, actionType, createdAt, privacySetting } =
     action;
-  const validatorWalletPrivateKey = process.env.VALIDATOR_WALLET_PRIVATE_KEY!;
+  const validatorWalletPrivateKey = process.env
+    .VALIDATOR_WALLET_PRIVATE_KEY! as Hex;
 
   const wallet = new ethers.Wallet(validatorWalletPrivateKey);
   const contractAddres = carbonEngineContracts[0].address;

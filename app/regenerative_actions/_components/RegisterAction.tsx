@@ -75,9 +75,10 @@ export const RegisterAction = ({
           onClick={async () => {
             await onSubmit();
           }}
+          className="bg-blue-200 rounded-md p-2 cursor-pointer"
           disabled={isPending}
         >
-          Submit
+          Submit action
         </button>
       </div>
       <div>
