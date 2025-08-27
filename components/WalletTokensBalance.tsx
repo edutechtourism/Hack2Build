@@ -1,6 +1,6 @@
 import { carbonCreditTokenContracts } from "@/contracts/contracts";
 import { AppChainId } from "@/contracts/settings";
-import { getTokensBalance } from "@/server/commons";
+import { getTokensBalance } from "@/server/walletBalance";
 import { useEffect, useState } from "react";
 import { formatNumber } from "thirdweb/utils";
 import { Account } from "thirdweb/wallets";
