@@ -2,23 +2,36 @@
 export type TelemetryEvent = {
   event: string;
   timestamp: string;
-  data?: Record<string, any>;
+  data?: Record<string, unknown>; // safer than "any"
 };
 
-export function logTelemetryEvent(event: string, data?: Record<string, any>) {
+/**
+ * Logs a telemetry event to localStorage (and console).
+ *
+ * @param event - A short string name for the event (e.g., "walletConnected", "plotCreated")
+ * @param data - Optional event data like coordinates, plotId, or any useful metadata
+ */
+export function logTelemetryEvent(event: string, data?: Record<string, unknown>) {
   const timestamp = new Date().toISOString();
+
   const log: TelemetryEvent = { event, timestamp, data };
 
-  const logs = JSON.parse(localStorage.getItem("telemetry") || "[]");
-  logs.push(log);
-  localStorage.setItem("telemetry", JSON.stringify(logs));
+  // Save in localStorage only in the browser
+  if (typeof window !== "undefined") {
+    const logs = JSON.parse(localStorage.getItem("telemetry") || "[]");
+    logs.push(log);
+    localStorage.setItem("telemetry", JSON.stringify(logs));
+  }
 
   console.log("Telemetry event logged:", log);
 }
 
+/**
+ * Retrieve all stored telemetry logs
+ */
 export function getTelemetryLogs(): TelemetryEvent[] {
   if (typeof window === "undefined") {
-    return []; // prevent server crash
+    return []; // avoid SSR crash
   }
   return JSON.parse(localStorage.getItem("telemetry") || "[]");
 }
