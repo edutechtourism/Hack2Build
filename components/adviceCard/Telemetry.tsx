@@ -2,11 +2,30 @@
 
 import { getTelemetryLogs } from "@/lib/telemetry";
 
-interface TelemetryProps {
-  data?: any;
+interface SatelliteData {
+  et0: number;
+  rainfall: number;
+  forecastRain: number;
 }
 
-export function Telemetry({ data }: TelemetryProps) {
+export default function AdviceCard({ data }: { data?: SatelliteData }) {
+  return (
+    <div>
+      <h3 className="mt-4">Satellite Data</h3>
+      {data ? (
+        <div>
+          <p>ET₀: {data.et0 ?? "N/A"}</p>
+          <p>Rainfall today: {data.rainfall ?? "N/A"} mm</p>
+          <p>Rainfall tomorrow: {data.forecastRain ?? "N/A"} mm</p>
+        </div>
+      ) : (
+        <p>No satellite data yet.</p>
+      )}
+    </div>
+  );
+}
+
+export function Telemetry() {
   const logs = getTelemetryLogs();
 
   return (
@@ -22,17 +41,6 @@ export function Telemetry({ data }: TelemetryProps) {
             </li>
           ))}
         </ul>
-      )}
-
-      <h3 className="mt-4">Satellite Data</h3>
-      {data ? (
-        <div>
-          <p>ET₀: {data.et0 ?? "N/A"}</p>
-          <p>Rainfall today: {data.rainfall ?? "N/A"} mm</p>
-          <p>Rainfall tomorrow: {data.forecastRain ?? "N/A"} mm</p>
-        </div>
-      ) : (
-        <p>No satellite data yet.</p>
       )}
     </div>
   );
