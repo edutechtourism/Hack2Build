@@ -1,4 +1,4 @@
-// /services/satelliteService.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface SatelliteData {
   et0?: number;
@@ -13,7 +13,8 @@ export async function fetchSatelliteData(
 ): Promise<SatelliteData | null> {
   try {
     const endpoint =
-      process.env.OPEN_METEO_ENDPOINT || "https://api.open-meteo.com/v1/forecast";
+      process.env.OPEN_METEO_ENDPOINT ||
+      "https://api.open-meteo.com/v1/forecast";
 
     const params = new URLSearchParams({
       latitude: lat.toString(),
