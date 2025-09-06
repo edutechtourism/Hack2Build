@@ -8,33 +8,29 @@ interface AdviceCardProps {
   forecastRain: number;
   lat: number;
   lon: number;
-  usgsData?: any; 
 }
 
-interface UsgsData {
-  datasets?: any;
-  scenes?: any;
-}
 
-export function AdviceCard({ et0, rainfall, forecastRain, lat, lon }: AdviceCardProps) {
-  const [usgsData, setUsgsData] = useState<UsgsData | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  // ✅ new state for checkbox
+export default function AdviceCard({
+  et0,
+  rainfall,
+  forecastRain,
+}: AdviceCardProps) {
   const [checked, setChecked] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [usgsData, setUsgsData] = useState<any>(null);
 
   useEffect(() => {
-    async function fetchUsgs() {
+    (async () => {
       try {
         const res = await fetch("/api/usgs");
         if (!res.ok) throw new Error(`API error: ${res.status}`);
         const json = await res.json();
         setUsgsData(json);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (e: any) {
+        setError(e.message);
       }
-    }
-    fetchUsgs();
+    })();
   }, []);
 
   let message = "Conditions are normal.";
@@ -51,18 +47,18 @@ export function AdviceCard({ et0, rainfall, forecastRain, lat, lon }: AdviceCard
 
   return (
     <div className="bg-white/10 p-4 rounded-xl shadow">
-      {/* Title row with checkbox */}
+      {/* Checkbox to the LEFT of the title */}
       <div className="flex items-center gap-2">
-        <h3 className="text-lg font-semibold">Advice</h3>
         <input
           type="checkbox"
           checked={checked}
           onChange={() => setChecked(!checked)}
           className="h-5 w-5 accent-green-600"
         />
+        <h3 className="text-lg font-semibold">Advice</h3>
       </div>
 
-      <p>{message}</p>
+      <p className={checked ? "" : ""}>{message}</p>
 
       <div className="mt-2 text-sm text-gray-400">
         <p>ET₀ today: {et0.toFixed(1)} mm</p>
@@ -70,12 +66,10 @@ export function AdviceCard({ et0, rainfall, forecastRain, lat, lon }: AdviceCard
         <p>Rain forecast tomorrow: {forecastRain.toFixed(1)} mm</p>
       </div>
 
-      {/* ✅ USGS section */}
       <div className="mt-4">
         <h4 className="text-md font-semibold">USGS Data</h4>
         {error && <p className="text-red-400">Error: {error}</p>}
         {!usgsData && !error && <p className="text-gray-400">Loading...</p>}
-        
         {usgsData && (
           <div className="text-sm text-gray-400">
             <p>

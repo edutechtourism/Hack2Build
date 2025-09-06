@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { fetchSatelliteData } from "@/services/satelliteService";
-import { AdviceCard } from "@/components/adviceCard/AdviceCard";
 import { Account } from "@/components/Account";
 import { CommonLayout } from "@/components/commons/CommonLayout";
+import AdviceCard from "@/components/adviceCard/AdviceCard";
 
 interface SatData {
   et0: number;
