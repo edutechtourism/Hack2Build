@@ -39,11 +39,14 @@ export function AdviceCard({ et0, rainfall, forecastRain, lat, lon }: AdviceCard
 
   let message = "Conditions are normal.";
   if (et0 >= 6 && rainfall < 2) {
-    message = "High evapotranspiration with low rainfall — irrigation recommended.";
+    message =
+      "High evapotranspiration with low rainfall — irrigation recommended.";
   } else if (et0 >= 4 && rainfall === 0) {
-    message = "Dry conditions detected — monitor closely and consider watering.";
+    message =
+      "Dry conditions detected — monitor closely and consider watering.";
   } else if (forecastRain > 5) {
-    message = "Significant rainfall expected tomorrow — irrigation may not be needed.";
+    message =
+      "Significant rainfall expected tomorrow — irrigation may not be needed.";
   }
 
   return (
