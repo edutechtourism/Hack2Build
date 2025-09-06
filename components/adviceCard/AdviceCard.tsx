@@ -13,7 +13,7 @@ interface AdviceCardProps {
 // Define the shape of USGS response
 interface UsgsResponse {
   datasets?: {
-    results: unknown[]; // no `any`, still flexible
+    results: unknown[]; //  still flexible
   };
   scenes?: {
     results: unknown[];
