@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { searchScenes } from "@/services/UsgsService";
 import axios from "axios";
 
 const USGS_API = "https://m2m.cr.usgs.gov/api/api/json/stable";
@@ -17,8 +16,18 @@ export async function GET() {
     }
 
     return NextResponse.json({ apiKey: data, sessionId });
-  } catch (err: any) {
-    console.error("USGS login error:", err.response?.data || err.message);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("USGS login error:", err.message);
+      return NextResponse.json({ error: err.message }, { status: 500 });
+    }
+
+    if (typeof err === "object" && err && "response" in err) {
+      const e = err as { response?: { data?: unknown } };
+      console.error("USGS login error:", e.response?.data || "Unknown error");
+      return NextResponse.json({ error: "USGS request failed" }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Unknown error" }, { status: 500 });
   }
 }
