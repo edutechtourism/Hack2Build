@@ -10,6 +10,15 @@ interface AdviceCardProps {
   lon: number;
 }
 
+// Define the shape of USGS response
+interface UsgsResponse {
+  datasets?: {
+    results: unknown[]; // no `any`, still flexible
+  };
+  scenes?: {
+    results: unknown[];
+  };
+}
 
 export default function AdviceCard({
   et0,
@@ -18,17 +27,21 @@ export default function AdviceCard({
 }: AdviceCardProps) {
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [usgsData, setUsgsData] = useState<any>(null);
+  const [usgsData, setUsgsData] = useState<UsgsResponse | null>(null);
 
   useEffect(() => {
     (async () => {
       try {
         const res = await fetch("/api/usgs");
         if (!res.ok) throw new Error(`API error: ${res.status}`);
-        const json = await res.json();
+        const json: UsgsResponse = await res.json();
         setUsgsData(json);
-      } catch (e: any) {
-        setError(e.message);
+      } catch (e: unknown) {
+        if (e instanceof Error) {
+          setError(e.message);
+        } else {
+          setError("Unknown error");
+        }
       }
     })();
   }, []);
@@ -58,7 +71,7 @@ export default function AdviceCard({
         <h3 className="text-lg font-semibold">Advice</h3>
       </div>
 
-      <p className={checked ? "" : ""}>{message}</p>
+      <p>{message}</p>
 
       <div className="mt-2 text-sm text-gray-400">
         <p>ET₀ today: {et0.toFixed(1)} mm</p>
@@ -75,13 +88,13 @@ export default function AdviceCard({
             <p>
               Datasets:{" "}
               {Array.isArray(usgsData.datasets?.results)
-                ? usgsData.datasets.results.length
+                ? usgsData.datasets!.results.length
                 : "N/A"}
             </p>
             <p>
               Scenes:{" "}
               {Array.isArray(usgsData.scenes?.results)
-                ? usgsData.scenes.results.length
+                ? usgsData.scenes!.results.length
                 : "N/A"}
             </p>
           </div>
