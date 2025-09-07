@@ -1,62 +1,65 @@
-## SMART CONTRACT REPOSITORY. https://github.com/cnerylozada/hack2build_contracts
+# 🌱 HEMPsat – Regenerative Agri-Intelligence Platform  
 
-# 🌱 HempSat Dashboard
+[![Deploy on Vercel](https://vercel.com/button)](https://hempsat.app/)  
 
-[![Deploy on Vercel](https://vercel.com/button)](https://hempsat.app/)
+HEMPsat is a **privacy-first agri-intelligence and carbon credit platform** that unites **farmers, eco-participants, and carbon brokers** into a shared ecosystem.  
 
-HempSat is a **next-generation agricultural telemetry and advisory platform** built during Hack2Build.  
-It combines **satellite data**, **plot-level insights**, and **blockchain-enabled wallet integration** into one clean, extensible dashboard.
-
----
-
-## ✨ Features
-
-### 📡 AdviceCard
-- Accepts dynamic inputs (`et0`, `rainfall`, `forecastRain`) instead of hardcoded values.  
-- Provides **real-time irrigation advice** with fallback messaging.  
-- Modular — satellite/weather developers can plug in their APIs directly.  
-
-### ⚡ Telemetry
-- Displays **wallet connection status** (Connected / Not connected).  
-- Logs connection info (address + timestamp) to console + localStorage.  
-- Extensible: add your own logic via `onConnect` (e.g., push wallet activity to backend).  
-
-### 🔗 Wallet Connect
-- Powered by **thirdweb**.  
-- Supports MetaMask and Core wallet.  
-- Authentication flow ready for secure API integrations.  
+By combining **satellite MRV (Monitor, Record, Validate)**, **farmer dashboards**, and **blockchain-powered tokens ($ROOT + $HEMP)**, HempSat unlocks **income for farmers**, **eco-engagement for users**, and **verifiable offsets for brokers**.  
 
 ---
 
-## 🚀 Getting Started
+## ✨ Core Features  
 
-### Prerequisites
-- Node.js 18+
-- npm or yarn
+### 🛰 Satellite MRV  
+- Integrates **USGS & other satellites** to measure soil health, crop growth, and carbon sequestration.  
+- AI-driven insights for farmers: irrigation, fertilizer, and weather recommendations.  
 
-### Clone the repository
-```bash
+### 📊 Farmer Dashboard  
+- Farmers can log regenerative practices (planting, composting, irrigation).  
+- Land pledge system for carbon credit eligibility.  
+- Privacy-first: farmers control what data is shared, with zk-proof selective visibility.  
+
+### 🌱 Dual Token Suite  
+- **$ROOT**: Seed-backed micro-reward token for farmers & eco-participants. Redeemable for heirloom seed packs.  
+- **$HEMP**: ERC-20 settlement coin for carbon brokers, pegged to validated carbon credits.  
+
+### 🛍 Marketplace  
+- Farmers, users, and brokers interact in a **seamless auto-swap marketplace**.  
+- Redeem seeds, farm tools, NFTs, and verified carbon credits.  
+
+### 🔒 Privacy & Governance  
+- zk-proof privacy layer for farmer data.  
+- DAO governance via **$ORACL** (EERC20 privacy-voting coin).  
+- Farmers gain governance rights as part of the **Pioneer Tier** (100+ acre pledges).  
+
+---
+
+## 🚀 Getting Started  
+
+### Prerequisites  
+- Node.js 18+  
+- npm or yarn  
+- Vercel (for deployment)  
+
+### Clone the repository  
 git clone https://github.com/edutechtourism/Hack2Build.git
 cd Hack2Build
-Install dependencies
-bash
-Copy code
-npm install
-Environment variables
-Create a .env.local file in the project root:
 
-env
-Copy code
+### Install Dependencies 
+npm install
+
+### Environment Variables
+Create a .env.local file in the project root:
 AUTH_PRIVATE_KEY=your_private_key_here
 THIRDWEB_SECRET_KEY=your_secret_key_here
 NEXT_PUBLIC_THIRDWEB_CLIENT_ID=your_client_id_here
-(These are already .gitignored and will not be pushed to GitHub.)
 
-Run locally
-bash
-Copy code
+(These are already .gitignored and safe from accidental commits.)
+
+### Run locally
 npm run dev
-Visit http://localhost:3000.
+
+Visit: http://localhost:3000
 
 🌍 Deployment
 We deploy on Vercel.
@@ -78,6 +81,24 @@ React Query (Data fetching & caching)
 
 Tailwind CSS (Styling)
 
+Avalanche (ERC-20 tokens $ROOT + $HEMP)
+
+---
+
+🧑‍🤝‍🧑 Team
+
+Michael Kamp – Ecosystem Architect / Pollinator
+
+Collin Petersen – Product Architect & Frontend Developer
+
+Cristian Nery – Head Web2/Web3 Fullstack Dev
+
+LM Designs 8 – Multi-sensory Design Strategist
+
+Charles Ledbetter – Real World Asset (RWA) Consultant
+
+---
+
 🏆 Hackathon Context
 This project was built during Hack2Build to showcase:
 
@@ -89,12 +110,8 @@ This project was built during Hack2Build to showcase:
 
 🔗 Blockchain-enabled interactions
 
-👥 Team
-Collin Petersen – Artist & AR Game Dev, frontend integration
-
-Grim – Backend & blockchain dev
-
-Contributors – Satellite API + Plot telemetry devs
+---
 
 📜 License
-MIT License — open for collaboration and extension.
+
+MIT License — open for collaboration, forks, and extension.
