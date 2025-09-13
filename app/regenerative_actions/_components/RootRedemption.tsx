@@ -8,7 +8,7 @@ export const RootRedemption = () => {
       {/* Placeholder image */}
       <div className="w-full flex justify-center">
         <img
-          src="/placeholder-seedpack.png" // replace later with your real image
+          src="/seedpack.jpg" // replace later with your real image
           alt="Seedpack"
           className="w-48 h-48 object-contain border rounded-md bg-gray-800"
         />
